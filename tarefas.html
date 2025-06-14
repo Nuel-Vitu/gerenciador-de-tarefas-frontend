@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Tarefas</title>
+    <link rel="stylesheet" href="tarefas.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h2>Olá, <span id="usuario-logado"></span>!</h2>
+            <button id="btn-logout">Sair</button>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="form-container">
+            <h3>Adicionar Nova Tarefa</h3>
+            <form id="form-nova-tarefa">
+                <div class="form-group">
+                    <input type="text" id="input-nova-tarefa" placeholder="Descrição da tarefa" required>
+                </div>
+                <div class="form-group">
+                    <label for="input-prazo">Prazo (opcional):</label>
+                    <input type="date" id="input-prazo">
+                </div>
+                <button type="submit" id="btn-adicionar">Adicionar Tarefa</button>
+            </form>
+        </section>
+
+        <section class="tarefas-container">
+            <h3>Sua Lista de Tarefas</h3>
+            <ul id="lista-de-tarefas">
+                </ul>
+        </section>
+    </main>
+    
+    <script src="tarefas.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+body {
+    font-family: sans-serif;
+    background-color: #f4f7f5;
+    color: #333;
+    margin: 0;
+}
+
+header {
+    background-color: #ca80ec;
+    color: white;
+    padding: 10px 40px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.header-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#btn-logout {
+    background-color: #dc3545;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.form-container, .tarefas-container {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* Estilos do Formulário */
+#form-nova-tarefa {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+}
+
+#btn-adicionar{
+    background-color: #14d814;
+    border: none;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+#form-nova-tarefa .form-group {
+    flex-grow: 1;
+}
+
+#form-nova-tarefa input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+#form-nova-tarefa button {
+    padding: 10px 20px;
+}
+
+/* Estilos da Lista de Tarefas */
+#lista-de-tarefas {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tarefa-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+.tarefa-item:last-child {
+    border-bottom: none;
+}
+
+.tarefa-item.completa .tarefa-texto {
+    text-decoration: line-through;
+    color: #888;
+}
+
+.tarefa-botoes button {
+    margin-left: 8px;
+    border: none;
+    padding: 5px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    color: white;
+}
+
+
+.input-edicao {
+    flex-grow: 1; /* Faz o input ocupar o espaço do texto */
+    padding: 5px;
+    border: 1px solid #007bff;
+    border-radius: 3px;
+    font-size: 1em; /* Usa o mesmo tamanho de fonte do resto da página */
+} 
+.btn-toggle { background-color: #28a745; }
+.btn-editar { background-color: #ffc107; }
+.btn-deletar { background-color: #dc3545; }
+.btn-salvar { background-color: #007bff;}
