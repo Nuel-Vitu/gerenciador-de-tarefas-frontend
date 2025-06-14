@@ -35,4 +35,4 @@ A aplicação permite que os usuários se cadastrem, façam login e gerenciem su
 
 **Emanuel Vitor Batista de Oliveira**
 * **Email:** vitorbatista2070@gmail.com
-* **LinkedIn:** [\[Link para seu Perfil no LinkedIn\]](https://www.linkedin.com/in/emanuel-vitor-batista-de-oliveira-9119b51bb?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bv5qYskZ9Q3qosfxMpX%2FIYg%3D%3D)
+* **LinkedIn:** [\Perfil no LinkedIn\]](https://www.linkedin.com/in/emanuel-vitor-batista-de-oliveira-9119b51bb?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_contact_details%3Bv5qYskZ9Q3qosfxMpX%2FIYg%3D%3D)
