@@ -50,7 +50,7 @@ formCadastro.addEventListener('submit', async (event) => {
 
     // Tenta fazer a requisição para a API
     try {
-        const response = await fetch('http://localhost:3001/api/auth/register', {
+        const response = await fetch('https://gerenciador-de-tarefas-backend.onrender.com/api/auth/register', {
             method: 'POST', // Método da requisição
             headers: {
                 'Content-Type': 'application/json' // Avisa ao servidor que estamos enviando JSON
@@ -89,7 +89,7 @@ formLogin.addEventListener('submit', async (event) => {
     const senha = document.querySelector('#login-senha').value;
 
     try {
-        const response = await fetch('http://localhost:3001/api/auth/login', {
+        const response = await fetch('https://gerenciador-de-tarefas-backend.onrender.com/api/auth/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
