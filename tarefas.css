@@ -1,12 +1,29 @@
+/* tarefas.css - VERSÃO ATUALIZADA */
+
+/* --- Estilos Gerais e de Layout --- */
 body {
-    font-family: sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #f4f7f5;
     color: #333;
     margin: 0;
+    line-height: 1.5;
 }
 
+main.container {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+h3 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+/* --- Cabeçalho (Header) --- */
 header {
-    background-color: #ca80ec;
+    background-color: #ca80ec; /* Sua cor personalizada - mantida! */
     color: white;
     padding: 10px 40px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -27,14 +44,10 @@ header {
     padding: 8px 15px;
     border-radius: 4px;
     cursor: pointer;
+    font-weight: bold;
 }
 
-.container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-}
-
+/* --- Contêineres de Seção --- */
 .form-container, .tarefas-container {
     background-color: white;
     padding: 30px;
@@ -43,41 +56,34 @@ header {
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
-h3 {
-    margin-top: 0;
-    border-bottom: 1px solid #eee;
-    padding-bottom: 10px;
-}
-
-/* Estilos do Formulário */
+/* --- Formulário de Nova Tarefa --- */
 #form-nova-tarefa {
     display: flex;
+    flex-wrap: wrap;
     gap: 15px;
     align-items: flex-end;
 }
+#form-nova-tarefa .form-group {
+    flex-grow: 1;
+}
+#form-nova-tarefa input, #form-nova-tarefa select {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
 
-#btn-adicionar{
+#form-nova-tarefa button {
+    padding: 10px 20px;
     background-color: #14d814;
     border: none;
     color: white;
     cursor: pointer;
     border-radius: 5px;
 }
-#form-nova-tarefa .form-group {
-    flex-grow: 1;
-}
 
-#form-nova-tarefa input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-#form-nova-tarefa button {
-    padding: 10px 20px;
-}
-
-/* Estilos da Lista de Tarefas */
+/* --- Lista de Tarefas --- */
 #lista-de-tarefas {
     list-style-type: none;
     padding: 0;
@@ -88,8 +94,9 @@ h3 {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #f0f0f0;
 }
+
 .tarefa-item:last-child {
     border-bottom: none;
 }
@@ -99,24 +106,73 @@ h3 {
     color: #888;
 }
 
-.tarefa-botoes button {
-    margin-left: 8px;
-    border: none;
-    padding: 5px 8px;
-    border-radius: 3px;
-    cursor: pointer;
-    color: white;
+/* ===== NOVO/ATUALIZADO ===== */
+/* Div que agrupa o texto e a prioridade para alinhamento */
+.tarefa-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-grow: 1;
+    margin-right: 15px;
 }
 
+/* ===== NOVO ===== */
+/* Estilo da etiqueta de Prioridade */
+.prioridade-badge {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-transform: capitalize;
+    flex-shrink: 0; 
+}
 
-.input-edicao {
-    flex-grow: 1; /* Faz o input ocupar o espaço do texto */
-    padding: 5px;
+/* ===== NOVO ===== */
+/* Cores para cada nível de prioridade */
+.prioridade-baixa { background-color: #28a745; } /* Verde */
+.prioridade-media { background-color: #ffc107; color: #333; } /* Amarelo */
+.prioridade-alta { background-color: #dc3545; } /* Vermelho */
+
+
+/* Campo de edição que aparece dinamicamente */
+.input-edicao-texto {
+    flex-grow: 1;
+    padding: 8px;
     border: 1px solid #007bff;
-    border-radius: 3px;
-    font-size: 1em; /* Usa o mesmo tamanho de fonte do resto da página */
-} 
-.btn-toggle { background-color: #28a745; }
-.btn-editar { background-color: #ffc107; }
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+.select-edicao-prioridade {
+    padding: 8px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+}
+
+/* Div que agrupa os botões de ação */
+.tarefa-botoes {
+    display: flex;
+    gap: 8px;
+}
+
+/* Estilo geral para os botões de ação dentro da tarefa */
+.tarefa-botoes button {
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    transition: opacity 0.2s;
+}
+
+.tarefa-botoes button:hover {
+    opacity: 0.8;
+}
+
+/* Cores específicas para cada botão de ação */
+.btn-toggle { background-color: #17a2b8; } /* Ciano */
+.btn-editar { background-color: #ffc107; color: #333; }
 .btn-deletar { background-color: #dc3545; }
-.btn-salvar { background-color: #007bff;}
+.btn-salvar { background-color: #28a745; } /* Verde */
