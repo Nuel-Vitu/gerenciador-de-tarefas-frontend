@@ -44,7 +44,7 @@ formNovaTarefa.addEventListener('submit', async (event) => {
             corpoRequisicao.prazo = prazo;
         }
 
-        const response = await fetch('http://localhost:3001/api/tarefas', {
+        const response = await fetch('https://gerenciador-de-tarefas-backend.onrender.com/api/tarefas', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ listaDeTarefas.addEventListener('click', async (event) => {
         try {
             const estadoAtual = tarefaLi.classList.contains('completa');
             const novoEstado = !estadoAtual;
-            const response = await fetch(`http://localhost:3001/api/tarefas/${idDaTarefa}`, {
+            const response = await fetch(`https://gerenciador-de-tarefas-backend.onrender.com/api/tarefas/${idDaTarefa}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ completa: novoEstado })
@@ -97,7 +97,7 @@ listaDeTarefas.addEventListener('click', async (event) => {
         const confirmar = confirm("Você tem certeza que deseja deletar esta tarefa?");
         if (confirmar) {
             try {
-                const response = await fetch(`http://localhost:3001/api/tarefas/${idDaTarefa}`, {
+                const response = await fetch(`https://gerenciador-de-tarefas-backend.onrender.com/api/tarefas/${idDaTarefa}`, {
                     method: 'DELETE',
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
@@ -152,7 +152,7 @@ listaDeTarefas.addEventListener('click', async (event) => {
         const novaPrioridade = selectEdicaoPrioridade.value;
 
         try {
-            const response = await fetch(`http://localhost:3001/api/tarefas/${idDaTarefa}`, {
+            const response = await fetch(`https://gerenciador-de-tarefas-backend.onrender.com/api/tarefas/${idDaTarefa}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ texto: novoTexto, prioridade: novaPrioridade })
@@ -174,7 +174,7 @@ listaDeTarefas.addEventListener('click', async (event) => {
 // Função para buscar as tarefas da API
 async function carregarTarefas() {
     try {
-        const response = await fetch('http://localhost:3001/api/tarefas', {
+        const response = await fetch('https://gerenciador-de-tarefas-backend.onrender.com/api/tarefas', {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` }
         });
