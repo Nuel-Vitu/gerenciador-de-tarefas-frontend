@@ -1,4 +1,4 @@
-// tarefas.js - VERSÃO FINAL COMPLETA
+// tarefas.js - VERSÃO FINAL CORRIGIDA
 
 // --- SELEÇÃO DOS ELEMENTOS GLOBAIS ---
 const btnLogout = document.querySelector('#btn-logout');
@@ -11,7 +11,6 @@ const inputPrazo = document.querySelector('#input-prazo');
 // --- LÓGICA DE SEGURANÇA E INICIALIZAÇÃO ---
 const token = localStorage.getItem('token');
 
-// VERIFICADOR DE SEGURANÇA: Se não houver token, expulsa o usuário.
 if (!token) {
     alert("Acesso negado. Faça o login para continuar.");
     window.location.href = 'index.html';
@@ -19,16 +18,13 @@ if (!token) {
 
 // --- EVENT LISTENERS (OUVINTES DE EVENTOS) ---
 
-// Evento para o botão de Logout
 btnLogout.addEventListener('click', () => {
     localStorage.removeItem('token');
     window.location.href = 'index.html';
 });
 
-// Evento para o formulário de criação de nova tarefa
 formNovaTarefa.addEventListener('submit', async (event) => {
     event.preventDefault();
-
     const texto = inputNovaTarefa.value;
     const prazo = inputPrazo.value;
     const prioridade = inputPrioridade.value;
@@ -67,14 +63,12 @@ formNovaTarefa.addEventListener('submit', async (event) => {
     }
 });
 
-// Event Listener principal para todas as ações na lista de tarefas (Delegação de Eventos)
 listaDeTarefas.addEventListener('click', async (event) => {
     const elementoClicado = event.target;
     const tarefaLi = elementoClicado.closest('.tarefa-item');
     if (!tarefaLi) return;
     const idDaTarefa = tarefaLi.dataset.id;
 
-    // --- AÇÃO: Marcar/Desmarcar como completa ---
     if (elementoClicado.classList.contains('btn-toggle')) {
         try {
             const estadoAtual = tarefaLi.classList.contains('completa');
@@ -92,7 +86,6 @@ listaDeTarefas.addEventListener('click', async (event) => {
         }
     }
 
-    // --- AÇÃO: Deletar tarefa ---
     if (elementoClicado.classList.contains('btn-deletar')) {
         const confirmar = confirm("Você tem certeza que deseja deletar esta tarefa?");
         if (confirmar) {
@@ -110,56 +103,41 @@ listaDeTarefas.addEventListener('click', async (event) => {
         }
     }
 
-    // --- AÇÃO: Entrar no modo de edição ---
     if (elementoClicado.classList.contains('btn-editar')) {
         const divInfo = tarefaLi.querySelector('.tarefa-info');
         const spanTexto = divInfo.querySelector('.tarefa-texto');
         const spanPrioridade = divInfo.querySelector('.prioridade-badge');
         const prioridadeAtual = spanPrioridade.className.split(' ')[1].split('-')[1];
-
         const inputEdicaoTexto = document.createElement('input');
         inputEdicaoTexto.type = 'text';
         inputEdicaoTexto.value = spanTexto.textContent;
         inputEdicaoTexto.className = 'input-edicao-texto';
-
         const selectEdicaoPrioridade = document.createElement('select');
         selectEdicaoPrioridade.className = 'select-edicao-prioridade';
-        selectEdicaoPrioridade.innerHTML = `
-            <option value="baixa">Baixa</option>
-            <option value="media">Média</option>
-            <option value="alta">Alta</option>
-        `;
+        selectEdicaoPrioridade.innerHTML = `<option value="baixa">Baixa</option><option value="media">Média</option><option value="alta">Alta</option>`;
         selectEdicaoPrioridade.value = prioridadeAtual;
-
         divInfo.innerHTML = '';
         divInfo.appendChild(inputEdicaoTexto);
         divInfo.appendChild(selectEdicaoPrioridade);
         inputEdicaoTexto.focus();
-
         elementoClicado.textContent = 'Salvar';
         elementoClicado.classList.remove('btn-editar');
         elementoClicado.classList.add('btn-salvar');
     } 
-    // --- AÇÃO: Salvar a edição ---
     else if (elementoClicado.classList.contains('btn-salvar')) {
         const divInfo = tarefaLi.querySelector('.tarefa-info');
         const inputEdicaoTexto = divInfo.querySelector('.input-edicao-texto');
         const selectEdicaoPrioridade = divInfo.querySelector('.select-edicao-prioridade');
-
         if (!inputEdicaoTexto || !selectEdicaoPrioridade) return;
-
         const novoTexto = inputEdicaoTexto.value;
         const novaPrioridade = selectEdicaoPrioridade.value;
-
         try {
             const response = await fetch(`https://gerenciador-de-tarefas-backend.onrender.com/api/tarefas/${idDaTarefa}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
                 body: JSON.stringify({ texto: novoTexto, prioridade: novaPrioridade })
             });
-
             if (!response.ok) throw new Error('Falha ao salvar a tarefa.');
-            
             carregarTarefas();
         } catch (error) {
             console.error('Erro ao salvar tarefa:', error);
@@ -171,21 +149,37 @@ listaDeTarefas.addEventListener('click', async (event) => {
 
 // --- FUNÇÕES PRINCIPAIS ---
 
-// Função para buscar as tarefas da API
+async function carregarDadosDoUsuario() {
+    if (!token) return;
+    try {
+        const response = await fetch('https://gerenciador-de-tarefas-backend.onrender.com/api/auth/me', {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!response.ok) {
+            throw new Error('Não foi possível carregar os dados do usuário.');
+        }
+        const usuario = await response.json();
+        const spanUsuario = document.querySelector('#usuario-logado');
+        if (spanUsuario) {
+            spanUsuario.textContent = usuario.nome || usuario.email;
+        }
+    } catch (error) {
+        console.error('Erro ao carregar dados do usuário:', error);
+    }
+}
+
 async function carregarTarefas() {
     try {
         const response = await fetch('https://gerenciador-de-tarefas-backend.onrender.com/api/tarefas', {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${token}` }
         });
-
         if (response.status === 401 || response.status === 403) {
             alert('Sua sessão expirou! Faça o login novamente.');
             localStorage.removeItem('token');
             window.location.href = 'index.html';
             return;
         }
-
         const tarefas = await response.json();
         listaDeTarefas.innerHTML = '';
         tarefas.forEach(tarefa => renderizarTarefa(tarefa));
@@ -195,7 +189,6 @@ async function carregarTarefas() {
     }
 }
 
-// Função para renderizar (desenhar) uma única tarefa na tela
 function renderizarTarefa(tarefa) {
     const li = document.createElement('li');
     li.className = 'tarefa-item';
@@ -222,5 +215,6 @@ function renderizarTarefa(tarefa) {
 }
 
 // --- INICIALIZAÇÃO ---
-// Chama a função para carregar as tarefas assim que a página é carregada
+// Chama as funções para carregar os dados assim que a página é carregada
 carregarTarefas();
+carregarDadosDoUsuario(); // Adicionada a chamada da função

@@ -3,6 +3,8 @@
 // Formulários
 const formCadastro = document.querySelector('#form-cadastro');
 const formLogin = document.querySelector('#form-login');
+const inputCadastroNome = document.querySelector('#cadastro-nome');
+
 
 // Adicione este bloco ao seu app.js
 
@@ -45,6 +47,7 @@ formCadastro.addEventListener('submit', async (event) => {
     event.preventDefault();
 
     // Pega os valores dos campos de input do formulário de cadastro
+    const nome = inputCadastroNome.value; // Pega o nome do usuário
     const email = document.querySelector('#cadastro-email').value;
     const senha = document.querySelector('#cadastro-senha').value;
 
@@ -55,7 +58,7 @@ formCadastro.addEventListener('submit', async (event) => {
             headers: {
                 'Content-Type': 'application/json' // Avisa ao servidor que estamos enviando JSON
             },
-            body: JSON.stringify({ email, senha }) // Converte o objeto JS para uma string JSON
+            body: JSON.stringify({ nome, email, senha }) // Converte o objeto JS para uma string JSON
         });
 
         const dados = await response.json(); // Tenta converter a resposta do servidor em JSON
